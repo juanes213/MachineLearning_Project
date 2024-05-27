@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Analisis Exploratorio Futuros EURO/DOLAR &#8212; AlgoTrading Machine learning project</title>
+    <title>&lt;no title&gt; &#8212; AlgoTrading Machine learning project</title>
   
   
   
@@ -176,8 +176,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analisis Exploratorio Futuros EURO/DOLAR</a></li>
+        <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="backtesting_module.html">$<span class="math notranslate nohighlight">\(Backtesting Module\)</span>$</a></li>
 </ul>
 
@@ -351,7 +350,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -362,11 +363,19 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Analisis Exploratorio Futuros EURO/DOLAR</h1>
+    <h1><no title></h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -376,21 +385,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="analisis-exploratorio-futuros-euro-dolar">
-<h1>Analisis Exploratorio Futuros EURO/DOLAR<a class="headerlink" href="#analisis-exploratorio-futuros-euro-dolar" title="Link to this heading">#</a></h1>
-<div class="cell docutils container">
+  <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
-<span class="kn">from</span> <span class="nn">yahoo_fin.stock_info</span> <span class="kn">import</span> <span class="n">get_data</span>
 <span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">shapiro</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">autocorrelation_plot</span>
-<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span>
 <span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_1samp</span><span class="p">,</span> <span class="n">shapiro</span><span class="p">,</span> <span class="n">normaltest</span><span class="p">,</span> <span class="n">jarque_bera</span><span class="p">,</span> <span class="n">boxcox</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
 
@@ -403,8 +408,8 @@ document.write(`
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">yahoo_fin.stock_info</span> <span class="kn">import</span> <span class="n">get_data</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="ne">ModuleNotFoundError</span>: No module named &#39;yfinance&#39;
 </pre></div>
@@ -703,6 +708,15 @@ dtype: int64
 <img alt="_images/cab132ffb7f18091a67fb3140fbf21061fbf868ea8d2f5a5b881e34e4e2bb443.png" src="_images/cab132ffb7f18091a67fb3140fbf21061fbf868ea8d2f5a5b881e34e4e2bb443.png" />
 </div>
 </div>
+<p><strong>Tendencia general:</strong></p>
+<ul class="simple">
+<li><p>El gráfico muestra una clara tendencia bajista durante la mayor parte del período analizado. Esto significa que el euro se ha depreciado frente al dólar estadounidense. Los inversores estaban dispuestos a pagar menos dólares por cada euro.</p></li>
+</ul>
+<p><strong>Volatilidad:</strong></p>
+<ul class="simple">
+<li><p>A pesar de la tendencia general bajista, el precio ha experimentado períodos de volatilidad, con fluctuaciones significativas en ambos sentidos. Esto sugiere que el mercado ha sido sensible a eventos económicos y políticos que han afectado la relación entre el euro y el dólar.</p></li>
+</ul>
+<p>El gráfico muestra una tendencia bajista general en el precio del futuro del euro/dólar, con períodos de volatilidad.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -718,6 +732,17 @@ dtype: int64
 <img alt="_images/aa450f98997dfc83a57f8b799e3d5b4bbc8329bab5fe9e0c38909f95923d2389.png" src="_images/aa450f98997dfc83a57f8b799e3d5b4bbc8329bab5fe9e0c38909f95923d2389.png" />
 </div>
 </div>
+<p><strong>Tendencia general:</strong></p>
+<ul class="simple">
+<li><p>Bajista. El precio del euro frente al dólar ha ido disminuyendo a lo largo del período analizado, comenzando en 1,13 y llegando a 1,05 en marzo de 2023.</p></li>
+</ul>
+<p><strong>Niveles de soporte y resistencia:</strong></p>
+<ul class="simple">
+<li><p>Soporte: Se identifican niveles de soporte en 1,04, 1,05 y 1,06. Estos niveles han actuado como “piso” en varias ocasiones, evitando que el precio caiga aún más.</p></li>
+<li><p>Resistencia: Se observan niveles de resistencia en 1,08 y 1,10. Estos niveles han frenado el ascenso del precio en algunos momentos, actuando como “techo”.</p></li>
+</ul>
+<p><strong>Conclusión:</strong></p>
+<p>El gráfico muestra que el euro se ha debilitado frente al dólar durante el período analizado. A pesar de algunos intentos de recuperación, la tendencia bajista ha persistido, encontrando soporte en niveles clave. Los niveles de resistencia identificados podrían ser objetivos a tener en cuenta si el precio intenta recuperarse en el futuro. Es importante seguir de cerca la evolución del precio y los factores macroeconómicos que puedan influir en el tipo de cambio.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span>
@@ -738,6 +763,9 @@ dtype: int64
 <img alt="_images/c4d5c2410d70ffecc8f64d4e5a01a29dc74be82708ceaf314a0f5db03e1ed6e2.png" src="_images/c4d5c2410d70ffecc8f64d4e5a01a29dc74be82708ceaf314a0f5db03e1ed6e2.png" />
 </div>
 </div>
+<p><strong>Autocorrelación positiva en los primeros retrasos:</strong> Las primeras barras del correlograma son positivas y estadísticamente significativas (asumiendo que superan las líneas azules de los intervalos de confianza). Esto indica que existe una cierta persistencia o inercia en los movimientos del precio del futuro del euro/dólar a corto plazo. Es decir, si el precio sube en un período, es probable que siga subiendo en los períodos inmediatamente siguientes, y viceversa.</p>
+<p><strong>Disminución rápida de la autocorrelación:</strong> A medida que aumenta el número de retrasos, la autocorrelación disminuye rápidamente y se vuelve no significativa. Esto sugiere que la relación entre los valores actuales y pasados del precio se debilita a medida que aumenta el horizonte temporal. En otras palabras, los movimientos del precio a largo plazo son menos predecibles a partir de los movimientos a corto plazo.</p>
+<p><strong>Limitaciones de los modelos autorregresivos:</strong> La baja autocorrelación en los retrasos más largos sugiere que los modelos autorregresivos simples (que utilizan valores pasados para predecir valores futuros) podrían no ser muy efectivos para predecir el precio del futuro del euro/dólar a largo plazo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Candlestick</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">datos_historicos</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
@@ -766,66 +794,6 @@ dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">datos_historicos</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">datos_historicos</span><span class="o">.</span><span class="n">columns</span><span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x2ac6f5e72b0&gt;
-</pre></div>
-</div>
-<img alt="_images/200b0f1b8407c3568798fb25f71d4e279aee80a661a92358ada473f261f80464.png" src="_images/200b0f1b8407c3568798fb25f71d4e279aee80a661a92358ada473f261f80464.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuración de la figura para la visualización</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">datos_historicos</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Open&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">datos_historicos</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">datos_historicos</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">datos_historicos</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;violet&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Precios del Oro&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fecha&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Precio USD&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/c160f104fff6a7a996ec96fd2448ba13a9ef257a02176a03f7e3a5eb879594c0.png" src="_images/c160f104fff6a7a996ec96fd2448ba13a9ef257a02176a03f7e3a5eb879594c0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ADF Statistic:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Critical Values:&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADF Statistic: -1.8365134664283391
-p-value: 0.36249029507845065
-Critical Values:
-1% :  -3.4473167281607155
-5% :  -2.869018036958473
-10% :  -2.5707536074503134
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span class="n">STL</span>
 
 <span class="n">stl</span> <span class="o">=</span> <span class="n">STL</span><span class="p">(</span><span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">])</span>
@@ -845,47 +813,18 @@ Critical Values:
 <img alt="_images/859f20fdc7b9389db181493679fcc729189f6627dc119715c4b6d293405af408.png" src="_images/859f20fdc7b9389db181493679fcc729189f6627dc119715c4b6d293405af408.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.diagnostic</span> <span class="kn">import</span> <span class="n">acorr_ljungbox</span>
-
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">resid</span>
-<span class="n">lb_test</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ljung-Box test p-values:&quot;</span><span class="p">,</span> <span class="n">lb_test</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ljung-Box test p-values:        lb_stat     lb_pvalue
-1    33.902665  5.793927e-09
-2    36.666445  1.091397e-08
-3    53.467080  1.457675e-11
-4    73.773491  3.620572e-15
-5   155.482719  9.079267e-32
-6   160.087683  5.673846e-32
-7   167.720807  7.589088e-33
-8   194.305352  1.011161e-37
-9   196.039361  2.239600e-37
-10  207.467730  4.459977e-39
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Retornos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
-
-<span class="n">stat</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">shapiro</span><span class="p">(</span><span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Retornos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Prueba de Shapiro-Wilk, Estadístico=</span><span class="si">{</span><span class="n">stat</span><span class="si">}</span><span class="s1">, p-valor=</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prueba de Shapiro-Wilk, Estadístico=0.9945915937423706, p-valor=0.9107440114021301
-</pre></div>
-</div>
-</div>
-</div>
+<p><strong>Tendencia:</strong></p>
+<ul class="simple">
+<li><p>La línea azul representa la tendencia general de la serie temporal a lo largo del tiempo. En este caso, observamos una tendencia ligeramente creciente, lo que indica que los valores de la serie tienden a aumentar a medida que avanza el tiempo. Es importante destacar que esta tendencia no es perfectamente lineal, sino que presenta algunas fluctuaciones a lo largo del período analizado.</p></li>
+</ul>
+<p><strong>Estacionalidad:</strong></p>
+<ul class="simple">
+<li><p>La línea roja representa el componente estacional, que captura los patrones repetitivos de la serie en intervalos regulares de tiempo. En este caso, se observa un patrón estacional claro, con picos y valles que se repiten de manera consistente. Esto sugiere que existe un factor estacional que influye en los valores de la serie, como podría ser la época del año, el día de la semana, etc.</p></li>
+</ul>
+<p><strong>Residuos:</strong></p>
+<ul class="simple">
+<li><p>La línea gris representa los residuos, que son la parte de la serie que no se explica por la tendencia ni por la estacionalidad. En otras palabras, son las fluctuaciones aleatorias o los eventos inesperados que afectan a la serie. En este caso, los residuos parecen ser relativamente pequeños y aleatorios, lo que indica que la tendencia y la estacionalidad capturan la mayor parte de la variabilidad de la serie.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -901,113 +840,24 @@ Critical Values:
 <img alt="_images/42ab1e58fa8da93a06f2a5af0281c2be4bb4ed8c65fb13f83af137b2dd7d7e21.png" src="_images/42ab1e58fa8da93a06f2a5af0281c2be4bb4ed8c65fb13f83af137b2dd7d7e21.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_1samp</span><span class="p">,</span> <span class="n">shapiro</span><span class="p">,</span> <span class="n">normaltest</span><span class="p">,</span> <span class="n">jarque_bera</span><span class="p">,</span> <span class="n">boxcox</span>
-<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
-<span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
-<span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
-<span class="kn">from</span> <span class="nn">pmdarima.arima</span> <span class="kn">import</span> <span class="n">auto_arima</span>
-<span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.sarimax</span> <span class="kn">import</span> <span class="n">SARIMAX</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtener datos de Yahoo Finance (último año y medio)</span>
-<span class="n">ticker</span> <span class="o">=</span> <span class="s2">&quot;EURUSD=X&quot;</span> 
-<span class="n">futuro</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">Ticker</span><span class="p">(</span><span class="n">ticker</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">futuro</span><span class="o">.</span><span class="n">history</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2023-06-30&quot;</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-
-<span class="c1"># Análisis Exploratorio de Datos (EDA)</span>
-
-<span class="c1"># Resumen estadístico</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resumen estadístico:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resumen estadístico:
-count    389.000000
-mean       1.062760
-std        0.043595
-min        0.959619
-25%        1.032855
-50%        1.069141
-75%        1.091584
-max        1.145712
-Name: Close, dtype: float64
-                               Open      High       Low     Close  Volume  \
-Date                                                                        
-2022-01-03 00:00:00+00:00  1.137385  1.137592  1.128541  1.137346       0   
-2022-01-04 00:00:00+00:00  1.130199  1.132300  1.127345  1.130224       0   
-2022-01-05 00:00:00+00:00  1.128541  1.134559  1.127764  1.128363       0   
-2022-01-06 00:00:00+00:00  1.131222  1.133067  1.128554  1.131350       0   
-2022-01-07 00:00:00+00:00  1.129586  1.135976  1.129050  1.129688       0   
-
-                           Dividends  Stock Splits  
-Date                                                
-2022-01-03 00:00:00+00:00        0.0           0.0  
-2022-01-04 00:00:00+00:00        0.0           0.0  
-2022-01-05 00:00:00+00:00        0.0           0.0  
-2022-01-06 00:00:00+00:00        0.0           0.0  
-2022-01-07 00:00:00+00:00        0.0           0.0  
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Precio de cierre ajustado&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precio de cierre de futuros </span><span class="si">{</span><span class="n">ticker</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fecha&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Precio&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/75b250603716c19780ba96c309786b7f140d7a7266d345c17e2cf3c4fbb26da6.png" src="_images/75b250603716c19780ba96c309786b7f140d7a7266d345c17e2cf3c4fbb26da6.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Open&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;High&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Low&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precios de futuros </span><span class="si">{</span><span class="n">ticker</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fecha&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Precio&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/97240f153c452ed832508d081cadcac231c0497bece50930518b8e3cdc443f23.png" src="_images/97240f153c452ed832508d081cadcac231c0497bece50930518b8e3cdc443f23.png" />
-</div>
-</div>
+<p><strong>Distribución:</strong></p>
+<ul class="simple">
+<li><p>La distribución de los rendimientos diarios se asemeja a una distribución normal, aunque con algunas desviaciones. La mayoría de los rendimientos se concentran alrededor de la media, que parece estar ligeramente por encima de cero, lo que sugiere un rendimiento promedio positivo durante el período analizado. Sin embargo, la distribución muestra una ligera asimetría negativa (cola izquierda más larga), lo que indica que hay una mayor probabilidad de rendimientos negativos extremos en comparación con los positivos extremos.</p></li>
+</ul>
+<p><strong>Volatilidad:</strong></p>
+<ul class="simple">
+<li><p>La dispersión de los rendimientos alrededor de la media indica la volatilidad del activo. En este caso, la volatilidad parece moderada, ya que la mayoría de los rendimientos se encuentran dentro de un rango relativamente estrecho. Sin embargo, la presencia de algunos valores atípicos (outliers) sugiere que el activo puede experimentar movimientos de precios más bruscos en ocasiones.</p></li>
+</ul>
+<p><strong>Implicaciones para la inversión:</strong></p>
+<ul class="simple">
+<li><p>Rendimiento esperado: La media ligeramente positiva sugiere que los inversores pueden esperar un rendimiento positivo en promedio, aunque no se puede garantizar un rendimiento específico en un día determinado.</p></li>
+<li><p>Riesgo: La volatilidad moderada y la asimetría negativa indican que el activo conlleva un cierto nivel de riesgo. Los inversores deben estar preparados para posibles fluctuaciones en el valor de su inversión y considerar su tolerancia al riesgo antes de invertir en este activo.</p></li>
+<li><p>Diversificación: Debido a la volatilidad y el riesgo asociados con este activo, sería prudente para los inversores diversificar su cartera, incluyendo otros activos con diferentes perfiles de riesgo y rendimiento.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Histograma de retornos</span>
-<span class="n">daily_returns</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
+<span class="n">daily_returns</span> <span class="o">=</span> <span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">daily_returns</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Histograma de retornos diarios&#39;</span><span class="p">)</span>
@@ -1024,8 +874,7 @@ Date
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transformación Box-Cox (si es necesario)</span>
-<span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">daily_returns</span><span class="o">.</span><span class="n">skew</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">daily_returns</span><span class="o">.</span><span class="n">skew</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
     <span class="n">daily_returns_transformed</span><span class="p">,</span> <span class="n">lambda_value</span> <span class="o">=</span> <span class="n">boxcox</span><span class="p">(</span><span class="n">daily_returns</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">daily_returns_transformed</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
@@ -1047,6 +896,20 @@ Date
 <img alt="_images/842ceae955db701e7e740e625d889fe94b5709707ea6087bb2eabe7082f8bb7d.png" src="_images/842ceae955db701e7e740e625d889fe94b5709707ea6087bb2eabe7082f8bb7d.png" />
 </div>
 </div>
+<p><strong>Función de Autocorrelación (ACF):</strong></p>
+<ul class="simple">
+<li><p>Retraso 0: La autocorrelación es siempre 1 en el retraso 0, ya que un valor siempre está perfectamente correlacionado consigo mismo.</p></li>
+<li><p>Retrasos Posteriores: Los valores de autocorrelación en los retrasos posteriores son cercanos a cero y se mantienen dentro del intervalo de confianza (la banda azul sombreada).</p></li>
+</ul>
+<p>Esto sugiere que no existe una correlación lineal significativa entre los valores de la serie temporal y sus valores pasados a partir del retraso 1. En otras palabras, el pasado de la serie no es útil para predecir su futuro de manera lineal.</p>
+<p><strong>Función de Autocorrelación Parcial (PACF):</strong></p>
+<ul class="simple">
+<li><p>Retraso 0: Similar a la ACF, la autocorrelación parcial es 1 en el retraso 0.</p></li>
+<li><p>Retraso 1: Se observa un pico significativo en el retraso 1, lo que indica que el valor de la serie en un momento dado está significativamente correlacionado con el valor del período anterior, después de eliminar el efecto de los valores intermedios.</p></li>
+<li><p>Retrasos Posteriores: Los valores de autocorrelación parcial caen dentro del intervalo de confianza a partir del retraso 2. Esto sugiere que, después de controlar por el retraso 1, no hay correlaciones parciales significativas con retrasos mayores.</p></li>
+</ul>
+<p><strong>Implicaciones para el un modelaje:</strong></p>
+<p>El patrón observado en la ACF y PACF (un pico significativo en el retraso 1 de la PACF y ningún otro pico significativo) es característico de un proceso autorregresivo de orden 1 (AR(1)). Esto significa que un modelo adecuado para esta serie temporal podría ser aquel en el que el valor actual depende linealmente del valor del período anterior, más un término de error aleatorio.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pruebas estadísticas</span>
@@ -1070,6 +933,7 @@ Prueba de Jarque-Bera: Estadística=2.360, p-valor=0.307
 </div>
 </div>
 </div>
+<p>En conjunto, los resultados de las tres pruebas sugieren que no hay evidencia estadística significativa para afirmar que los datos no provienen de una distribución normal. Esto significa que, según estas pruebas, la suposición de normalidad podría ser razonable para los datos analizados.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prueba t de Student (hipótesis nula: media de retornos = 0)</span>
@@ -1077,7 +941,7 @@ Prueba de Jarque-Bera: Estadística=2.360, p-valor=0.307
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Prueba t de Student: Estadística=</span><span class="si">{</span><span class="n">stat_t</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, p-valor=</span><span class="si">{</span><span class="n">p_t</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="c1"># Prueba de Dickey-Fuller Aumentada (hipótesis nula: serie no estacionaria)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">])</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Prueba de Dickey-Fuller Aumentada (Close):&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ADF Statistic: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;p-value: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1087,14 +951,33 @@ Prueba de Jarque-Bera: Estadística=2.360, p-valor=0.307
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prueba t de Student: Estadística=-0.300, p-valor=0.764
 
-Prueba de Dickey-Fuller Aumentada:
+Prueba de Dickey-Fuller Aumentada (Close):
 ADF Statistic: -1.837
 p-value: 0.362
 </pre></div>
 </div>
 </div>
 </div>
-</section>
+<p><strong>Prueba t de Student (hipótesis nula: media de retornos = 0):</strong></p>
+<ul class="simple">
+<li><p>Estadístico: -0.300</p></li>
+<li><p>Valor p: 0.764</p></li>
+</ul>
+<p>Esta prueba evalúa si la media de los retornos diarios es estadísticamente diferente de cero. El valor p de 0.764, muy superior al nivel de significancia típico de 0.05, indica que no hay evidencia suficiente para rechazar la hipótesis nula. Por lo tanto, no podemos concluir que los retornos diarios del activo sean significativamente diferentes de cero en promedio. Esto sugiere que, en el período analizado, el activo no generó ganancias ni pérdidas promedio estadísticamente significativas.</p>
+<p><strong>Prueba de Dickey-Fuller Aumentada (hipótesis nula: serie no estacionaria - precios de cierre):</strong></p>
+<ul class="simple">
+<li><p>Estadístico ADF: -1.837</p></li>
+<li><p>Valor p: 0.362</p></li>
+</ul>
+<p>Esta prueba examina si la serie de precios de cierre (“Close”) es estacionaria, es decir, si sus propiedades estadísticas (media, varianza) se mantienen constantes a lo largo del tiempo. El valor p de 0.362, superior al nivel de significancia de 0.05, indica que no hay evidencia suficiente para rechazar la hipótesis nula. Por lo tanto, no podemos afirmar con certeza que la serie de precios de cierre sea estacionaria. Esto sugiere que los precios podrían presentar tendencias o patrones que cambian con el tiempo, lo cual es relevante para su modelado y análisis.</p>
+<p><strong>Rendimiento del activo:</strong></p>
+<ul class="simple">
+<li><p>En el período analizado, el activo no mostró un rendimiento promedio diario estadísticamente diferente de cero. Esto no implica necesariamente que el activo sea una mala inversión, ya que podrían existir otros factores a considerar, como la volatilidad o el riesgo asociado.</p></li>
+</ul>
+<p><strong>Estacionariedad de los precios:</strong></p>
+<ul class="simple">
+<li><p>Los precios de cierre del activo no presentan evidencia suficiente de estacionariedad. Esto podría indicar la presencia de tendencias o patrones cambiantes en los precios, lo que dificulta su predicción y requiere modelos más sofisticados para su análisis.</p></li>
+</ul>
 
     <script type="text/x-thebe-config">
     {
@@ -1151,7 +1034,20 @@ p-value: 0.362
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
