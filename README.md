@@ -1,3 +1,3 @@
 # MachineLearning_Project
 
-### Participantes: Juan Albis, Jesus Averalo, Lorenzo Gutierrez
+### Participantes: Juan Albis Y Lorenzo Gutierrez
