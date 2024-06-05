@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; AlgoTrading Machine learning project</title>
+    <title>EDA &#8212; AlgoTrading Machine learning project</title>
   
   
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'futuros_eda';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="$\(Backtesting Module\)$" href="backtesting_module.html" />
+    <link rel="next" title="$\(\text{Backtesting Module}\)$" href="Bcktst_mdle.html" />
     <link rel="prev" title="Machine Learning Final" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -176,8 +176,17 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="backtesting_module.html">$<span class="math notranslate nohighlight">\(Backtesting Module\)</span>$</a></li>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">EDA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bcktst_mdle.html">$<span class="math notranslate nohighlight">\(\text{Backtesting Module}\)</span>$</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="modeloDQN.html">Implementación Modelo DQN</a></li>
 </ul>
 
     </div>
@@ -363,7 +372,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>EDA</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -372,9 +381,9 @@ document.write(`
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-de-tiempo-mensual-del-precio-de-cierre-euro-dolar">Serie de Tiempo mensual del Precio de Cierre EURO/DOLAR</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -385,7 +394,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="eda">
+<h1>EDA<a class="headerlink" href="#eda" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
 <span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
@@ -395,10 +406,10 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_1samp</span><span class="p">,</span> <span class="n">shapiro</span><span class="p">,</span> <span class="n">normaltest</span><span class="p">,</span> <span class="n">jarque_bera</span><span class="p">,</span> <span class="n">boxcox</span>
-<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_pacf</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
-
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -719,6 +730,43 @@ dtype: int64
 <p>El gráfico muestra una tendencia bajista general en el precio del futuro del euro/dólar, con períodos de volatilidad.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc_weekly</span> <span class="o">=</span> <span class="n">datos_historicos</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">btc_monthly</span> <span class="o">=</span> <span class="n">datos_historicos</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">fig_weekly</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">btc_weekly</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">btc_weekly</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">,</span>
+                     <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de Tiempo Semanal Euro/Usd&#39;</span><span class="p">,</span>
+                     <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="s1">&#39;Fecha&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">:</span><span class="s1">&#39;Precio de Cierre&#39;</span><span class="p">})</span>
+
+<span class="n">fig_monthly</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">btc_monthly</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">btc_monthly</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">,</span>
+                      <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de Tiempo Mensual Euro/Usd&#39;</span><span class="p">,</span>
+                      <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span><span class="s1">&#39;Fecha&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">:</span><span class="s1">&#39;Precio de Cierre&#39;</span><span class="p">})</span>
+
+<span class="n">fig_weekly</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">fig_monthly</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<section id="serie-de-tiempo-mensual-del-precio-de-cierre-euro-dolar">
+<h2>Serie de Tiempo mensual del Precio de Cierre EURO/DOLAR<a class="headerlink" href="#serie-de-tiempo-mensual-del-precio-de-cierre-euro-dolar" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Eje Y (Precio de Cierre)</strong>:</p>
+<ul class="simple">
+<li><p>Muestra el rango de precios de cierre del BTC-USD.</p></li>
+<li><p>Los precios varían desde aproximadamente $1.1325 en 2022 hasta 1.083 en los picos.</p></li>
+</ul>
+</li>
+<li><p><strong>Observaciones</strong>:</p>
+<ul class="simple">
+<li><p>La serie de tiempo muestra los precios de cierre semanales del EURO/DOLAR</p></li>
+<li><p>Se pueden identificar varias fases de decrecimiento en el precio del EURO a lo largo de los años.</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">datos_historicos</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of EURUSD=X Exchange Rate&#39;</span><span class="p">)</span>
@@ -978,6 +1026,8 @@ p-value: 0.362
 <ul class="simple">
 <li><p>Los precios de cierre del activo no presentan evidencia suficiente de estacionariedad. Esto podría indicar la presencia de tendencias o patrones cambiantes en los precios, lo que dificulta su predicción y requiere modelos más sofisticados para su análisis.</p></li>
 </ul>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1019,11 +1069,11 @@ p-value: 0.362
       </div>
     </a>
     <a class="right-next"
-       href="backtesting_module.html"
+       href="Bcktst_mdle.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">$<span class="math notranslate nohighlight">\(Backtesting Module\)</span>$</p>
+        <p class="prev-next-title">$<span class="math notranslate nohighlight">\(\text{Backtesting Module}\)</span>$</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1042,9 +1092,9 @@ p-value: 0.362
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-de-tiempo-mensual-del-precio-de-cierre-euro-dolar">Serie de Tiempo mensual del Precio de Cierre EURO/DOLAR</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
